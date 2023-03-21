@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_navigation"
+    app:startDestination="@id/deviceHolderListFragment">
+
+    <fragment
+        android:id="@+id/deviceHolderListFragment"
+        android:name="com.krtkush.patronus.feature.deviceholder.list.ui.DeviceHolderListFragment"
+        android:label="DeviceHolderListFragment"
+        tools:layout="@layout/device_holder_list_fragment"/>
+</navigation>

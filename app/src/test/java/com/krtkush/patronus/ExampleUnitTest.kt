@@ -1,4 +1,4 @@
-package com.krtkush.patronous
+package com.krtkush.patronus
 
 import org.junit.Test
 
