@@ -36,7 +36,7 @@ class DeviceHolderListFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         dataObservers()
-        viewModel.getUsers()
+        viewModel.fetchUsers()
     }
 
     private fun dataObservers() {

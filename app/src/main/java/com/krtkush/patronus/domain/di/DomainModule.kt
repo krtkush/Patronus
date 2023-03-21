@@ -1,7 +1,7 @@
 package com.krtkush.patronus.domain.di
 
 import com.krtkush.patronus.data.repositories.UserRepositoryInterface
-import com.krtkush.patronus.domain.usecases.GetUsersUseCase
+import com.krtkush.patronus.domain.usecases.FetchUsersUseCase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -15,7 +15,7 @@ class DomainModule {
 
     @Provides
     @Singleton
-    fun provideGetUsersUseCase(userRepositoryInterface: UserRepositoryInterface) : GetUsersUseCase {
-        return GetUsersUseCase(userRepositoryInterface)
+    fun provideGetUsersUseCase(userRepositoryInterface: UserRepositoryInterface) : FetchUsersUseCase {
+        return FetchUsersUseCase(userRepositoryInterface)
     }
 }
