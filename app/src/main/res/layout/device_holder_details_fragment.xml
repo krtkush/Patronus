@@ -2,13 +2,128 @@
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:paddingStart="24dp"
+    android:paddingEnd="24dp"
+    android:paddingTop="15dp">
+
+    <View
+        android:id="@+id/map"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"/>
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/userImage"
+        android:layout_below="@id/map"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:scaleType="centerCrop"
+        style="@style/Style.App.circleImageView"/>
+
+    <TextView
+        android:id="@+id/imageAlternativeTV"
+        android:layout_below="@id/map"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:gravity="center"
+        android:textSize="22sp"
+        android:background="@drawable/bg_circle" />
+
+    <TextView
+        android:id="@+id/userFullName"
+        android:layout_below="@id/userImage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:textSize="27sp"
+        android:textStyle="bold"
+        android:textColor="@color/black_text"/>
+
+    <View
+        android:id="@+id/tagPlaceHolder"
+        android:layout_width="1dp"
+        android:layout_height="20dp"
+        android:layout_below="@id/userFullName"
+        android:layout_toEndOf="@+id/banTag"
+        android:layout_marginTop="12dp" />
+
+    <TextView
+        android:id="@+id/famTag"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/userFullName"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="8dp"
+        android:textSize="15sp"
+        android:padding="3dp"
+        android:background="@drawable/bg_grey_tag"/>
+
+    <TextView
+        android:id="@+id/banTag"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toEndOf="@id/famTag"
+        android:layout_below="@id/userFullName"
+        android:layout_marginTop="12dp"
+        android:textSize="15sp"
+        android:padding="3dp"
+        android:background="@drawable/bg_pink_tag"
+        android:textColor="@color/pink_text" />
+
+    <TextView
+        android:id="@+id/userGender"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tagPlaceHolder"
+        android:layout_marginTop="12dp"
+        android:textSize="17sp"
+        android:textColor="@color/lightest_black_text"/>
+
+    <View
+        android:id="@+id/vertDiv"
+        android:layout_below="@id/tagPlaceHolder"
+        android:layout_toEndOf="@id/userGender"
+        android:layout_width="1dp"
+        android:layout_height="25dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:background="@color/div_grey"/>
+
+    <TextView
+        android:id="@+id/userPhoneNumber"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tagPlaceHolder"
+        android:layout_toEndOf="@id/vertDiv"
+        android:layout_marginTop="12dp"
+        android:textSize="17sp"
+        android:textColor="@color/lightest_black_text"/>
+
+    <TextView
+        android:id="@+id/userAddressTitle"
+        android:layout_below="@id/userPhoneNumber"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="@string/address_title"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        android:textColor="@color/black_text"/>
+
+    <TextView
+        android:id="@+id/userAddress"
+        android:layout_below="@id/userAddressTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:textSize="17sp"
+        android:textColor="@color/lightest_black_text"/>
 
     <ProgressBar
         android:id="@+id/progressBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/black"
         android:indeterminate="true"
         android:visibility="gone"
         android:layout_centerInParent="true"/>

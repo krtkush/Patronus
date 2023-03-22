@@ -3,4 +3,5 @@
     <string name="fragment_title_device_holders_list">Device Holders</string>
     <string name="tag_text_fam">Fam</string>
     <string name="tag_text_ban">Ban</string>
+    <string name="address_title">ADDRESS</string>
 </resources>

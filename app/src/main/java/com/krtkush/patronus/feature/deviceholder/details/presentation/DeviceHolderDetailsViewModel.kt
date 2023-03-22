@@ -19,6 +19,7 @@ class DeviceHolderDetailsViewModel @Inject constructor(private val fetchUserDeta
     private val _userDetailsState = MutableStateFlow<NetworkResult<UserDetailsResponse>>(NetworkResult.Loading)
     val userDetailsState: StateFlow<NetworkResult<UserDetailsResponse>>
         get() = _userDetailsState
+
     fun fetchUserDetails(id: Int) {
 
         _userDetailsState.value = NetworkResult.Loading

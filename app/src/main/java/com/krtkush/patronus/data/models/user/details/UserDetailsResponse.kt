@@ -1,11 +1,27 @@
 package com.krtkush.patronus.data.models.user.details
 
+
 import com.squareup.moshi.Json
 
 data class UserDetailsResponse(
+    @Json(name = "address")
+    val address: Address,
+    @Json(name = "currentLatitude")
+    val currentLatitude: Double,
+    @Json(name = "currentLongitude")
+    val currentLongitude: Double,
     @Json(name = "firstName")
-    var firstName: String,
-
+    val firstName: String,
+    @Json(name = "gender")
+    val gender: String,
+    @Json(name = "id")
+    val id: Int,
+    @Json(name = "imageUrl")
+    val imageUrl: String,
     @Json(name = "lastName")
-    var lastName: String,
+    val lastName: String,
+    @Json(name = "phoneNumber")
+    val phoneNumber: String,
+    @Json(name = "stickers")
+    val stickers: List<String>
 )

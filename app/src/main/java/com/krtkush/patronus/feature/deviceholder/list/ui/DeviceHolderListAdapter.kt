@@ -17,7 +17,7 @@ import com.krtkush.patronus.databinding.UserListItemBinding
 class DeviceHolderListAdapter(
     private val listener: DeviceHolderItemOnClickListener,
     private val userList: List<Customer>
-    ) : RecyclerView.Adapter<DeviceHolderListAdapter.UserItemViewHolder>() {
+    ) : RecyclerView.Adapter<UserItemViewHolder>() {
 
     interface DeviceHolderItemOnClickListener {
         fun onDeviceHolderItemSelected(id: Int)
@@ -34,80 +34,82 @@ class DeviceHolderListAdapter(
     }
 
     override fun getItemCount(): Int = userList.size
+}
 
-    inner class UserItemViewHolder(
-            private val itemBinding : UserListItemBinding,
-            private val listener: DeviceHolderItemOnClickListener
-        ) : RecyclerView.ViewHolder(itemBinding.root), View.OnClickListener {
+class UserItemViewHolder(
+        private val itemBinding : UserListItemBinding,
+        private val listener: DeviceHolderListAdapter.DeviceHolderItemOnClickListener
+    ) : RecyclerView.ViewHolder(itemBinding.root), View.OnClickListener {
 
-        private lateinit var user: Customer
+    private lateinit var user: Customer
 
-        init {
-            itemBinding.root.setOnClickListener(this)
+    init {
+        itemBinding.root.setOnClickListener(this)
+    }
+
+    fun bind(userItem : Customer) {
+
+        this.user = userItem
+
+        itemBinding.userFullName.text = "${userItem.firstName} ${userItem.lastName}"
+        itemBinding.userGender.text = userItem.gender
+        itemBinding.userPhoneNumber.text = userItem.phoneNumber
+
+        if (userItem.stickers.contains("Fam")) {
+            itemBinding.famTag.text = itemBinding.famTag.context.getText(R.string.tag_text_fam)
+            itemBinding.famTag.visibility = View.VISIBLE
+        } else {
+            itemBinding.famTag.visibility = View.GONE
         }
 
-        fun bind(userItem : Customer) {
-
-            itemBinding.userFullName.text = "${userItem.firstName} ${userItem.lastName}"
-            itemBinding.userGender.text = userItem.gender
-            itemBinding.userPhoneNumber.text = userItem.phoneNumber
-
-            if (userItem.stickers.contains("Fam")) {
-                itemBinding.famTag.text = itemBinding.famTag.context.getText(R.string.tag_text_fam)
-                itemBinding.famTag.visibility = View.VISIBLE
-            } else {
-                itemBinding.famTag.visibility = View.GONE
-            }
-
-            if (userItem.stickers.contains("Ban")) {
-                itemBinding.banTag.text = itemBinding.banTag.context.getText(R.string.tag_text_ban)
-                itemBinding.banTag.visibility = View.VISIBLE
-            } else {
-                itemBinding.banTag.visibility = View.GONE
-            }
-
-            if (userItem.imageUrl.isNullOrEmpty()) {
-               setImageFailAlternative(itemBinding, userItem)
-            } else {
-                itemBinding.imageAlternativeTV.visibility = View.GONE
-                itemBinding.userImage.visibility = View.VISIBLE
-
-                Glide.with(itemView.context)
-                    .load(userItem.imageUrl)
-                    .listener(object : RequestListener<Drawable?> {
-                        override fun onLoadFailed(
-                            e: GlideException?,
-                            model: Any?,
-                            target: Target<Drawable?>?,
-                            isFirstResource: Boolean
-                        ): Boolean {
-                            setImageFailAlternative(itemBinding, userItem)
-                            return false
-                        }
-
-                        override fun onResourceReady(
-                            resource: Drawable?,
-                            model: Any?,
-                            target: Target<Drawable?>?,
-                            dataSource: DataSource?,
-                            isFirstResource: Boolean
-                        ): Boolean {
-                            return false
-                        }
-                    })
-                    .into(itemBinding.userImage)
-            }
+        if (userItem.stickers.contains("Ban")) {
+            itemBinding.banTag.text = itemBinding.banTag.context.getText(R.string.tag_text_ban)
+            itemBinding.banTag.visibility = View.VISIBLE
+        } else {
+            itemBinding.banTag.visibility = View.GONE
         }
 
-        override fun onClick(p0: View?) {
-            listener.onDeviceHolderItemSelected(user.id)
-        }
+        if (userItem.imageUrl.isNullOrEmpty()) {
+            setImageFailAlternative(itemBinding, userItem)
+        } else {
+            itemBinding.imageAlternativeTV.visibility = View.GONE
+            itemBinding.userImage.visibility = View.VISIBLE
 
-        private fun setImageFailAlternative(itemBinding : UserListItemBinding, userItem : Customer) {
+            Glide.with(itemView.context)
+                .load(userItem.imageUrl)
+                .listener(object : RequestListener<Drawable?> {
+                    override fun onLoadFailed(
+                        e: GlideException?,
+                        model: Any?,
+                        target: Target<Drawable?>?,
+                        isFirstResource: Boolean
+                    ): Boolean {
+                        setImageFailAlternative(itemBinding, userItem)
+                        return false
+                    }
 
-            itemBinding.imageAlternativeTV.visibility = View.VISIBLE
-            itemBinding.userImage.visibility = View.INVISIBLE
-            itemBinding.imageAlternativeTV.text = "${userItem.firstName[0]}${userItem.lastName[0]}"
+                    override fun onResourceReady(
+                        resource: Drawable?,
+                        model: Any?,
+                        target: Target<Drawable?>?,
+                        dataSource: DataSource?,
+                        isFirstResource: Boolean
+                    ): Boolean {
+                        return false
+                    }
+                })
+                .into(itemBinding.userImage)
         }
+    }
+
+    private fun setImageFailAlternative(itemBinding : UserListItemBinding, userItem : Customer) {
+
+        itemBinding.imageAlternativeTV.visibility = View.VISIBLE
+        itemBinding.userImage.visibility = View.INVISIBLE
+        itemBinding.imageAlternativeTV.text = "${userItem.firstName[0]}${userItem.lastName[0]}"
+    }
+
+    override fun onClick(p0: View?) {
+        listener.onDeviceHolderItemSelected(user.id)
     }
 }

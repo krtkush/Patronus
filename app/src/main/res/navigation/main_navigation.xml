@@ -16,5 +16,6 @@
     </fragment>
     <fragment
         android:id="@+id/deviceHolderDetailsFragment"
-        android:name="com.krtkush.patronus.feature.deviceholder.details.ui.DeviceHolderDetailsFragment" />
+        android:name="com.krtkush.patronus.feature.deviceholder.details.ui.DeviceHolderDetailsFragment"
+        android:label=""/>
 </navigation>

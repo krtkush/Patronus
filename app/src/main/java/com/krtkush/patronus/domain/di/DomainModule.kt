@@ -20,6 +20,8 @@ class DomainModule {
         return FetchUsersUseCase(userRepositoryInterface)
     }
 
+    @Provides
+    @Singleton
     fun provideFetchUserDetailsByIdUseCase(userRepositoryInterface: UserRepositoryInterface) : FetchUserDetailsByIdUseCase {
         return FetchUserDetailsByIdUseCase(userRepositoryInterface)
     }
