@@ -9,7 +9,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
-import com.krtkush.patronus.data.models.users.list.UserListResponse
+import com.krtkush.patronus.data.models.user.list.UserListResponse
 import com.krtkush.patronus.databinding.DeviceHolderListFragmentBinding
 import com.krtkush.patronus.feature.deviceholder.list.presentation.DeviceHolderListViewModel
 import com.krtkush.patronus.utils.autoCleared

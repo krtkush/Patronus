@@ -1,6 +1,6 @@
 package com.krtkush.patronus.domain.usecases
 
-import com.krtkush.patronus.data.models.users.list.UserListResponse
+import com.krtkush.patronus.data.models.user.list.UserListResponse
 import com.krtkush.patronus.data.repositories.UserRepositoryInterface
 import com.krtkush.patronus.utils.network.NetworkResult
 import kotlinx.coroutines.flow.Flow

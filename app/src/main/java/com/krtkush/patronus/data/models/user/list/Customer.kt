@@ -1,7 +1,6 @@
-package com.krtkush.patronus.data.models.users.list
+package com.krtkush.patronus.data.models.user.list
 
 import com.squareup.moshi.Json
-import com.squareup.moshi.JsonClass
 
 data class Customer(
     @Json(name = "id")
