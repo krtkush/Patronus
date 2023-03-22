@@ -1,7 +1,81 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/userListLayout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content"
+    android:paddingStart="24dp"
+    android:paddingEnd="24dp"
+    android:paddingTop="16dp"
+    android:paddingBottom="16dp">
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/userImage"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:scaleType="centerCrop"
+        style="@style/Style.App.circleImageView"/>
+
+    <TextView
+        android:id="@+id/imageAlternativeTV"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:gravity="center"
+        android:textSize="22sp"
+        android:background="@drawable/bg_circle" />
+
+    <TextView
+        android:id="@+id/userFullName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toEndOf="@id/userImage"
+        android:layout_marginStart="12dp"
+        android:textSize="17sp"
+        android:textColor="@color/black_text"/>
+
+    <TextView
+        android:id="@+id/userGender"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toEndOf="@id/userFullName"
+        android:layout_marginStart="8dp"
+        android:textSize="17sp"
+        android:textColor="@color/lightest_black_text"/>
+
+    <TextView
+        android:id="@+id/userPhoneNumber"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toEndOf="@id/userImage"
+        android:layout_below="@id/userFullName"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="5dp"
+        android:textSize="17sp"
+        android:textColor="@color/lightest_black_text"/>
+
+    <TextView
+        android:id="@+id/famTag"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toEndOf="@id/userPhoneNumber"
+        android:layout_below="@id/userFullName"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="5dp"
+        android:textSize="13sp"
+        android:padding="3dp"
+        android:background="@drawable/bg_grey_tag"/>
+
+    <TextView
+        android:id="@+id/banTag"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toEndOf="@id/famTag"
+        android:layout_below="@id/userFullName"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="5dp"
+        android:textSize="13sp"
+        android:padding="3dp"
+        android:background="@drawable/bg_pink_tag"
+        android:textColor="@color/pink_text" />
 
 </RelativeLayout>

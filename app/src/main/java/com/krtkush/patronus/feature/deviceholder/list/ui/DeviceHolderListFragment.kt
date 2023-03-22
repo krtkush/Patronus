@@ -9,6 +9,9 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.krtkush.patronus.data.models.user.list.Customer
 import com.krtkush.patronus.data.models.user.list.UserListResponse
 import com.krtkush.patronus.databinding.DeviceHolderListFragmentBinding
 import com.krtkush.patronus.feature.deviceholder.list.presentation.DeviceHolderListViewModel
@@ -18,7 +21,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class DeviceHolderListFragment : Fragment() {
+class DeviceHolderListFragment : Fragment(), DeviceHolderListAdapter.DeviceHolderItemOnClickListener {
 
     private val viewModel : DeviceHolderListViewModel by viewModels()
     private var viewBinding : DeviceHolderListFragmentBinding by autoCleared()
@@ -82,7 +85,7 @@ class DeviceHolderListFragment : Fragment() {
         viewBinding.listRV.visibility = View.VISIBLE
         viewBinding.messageTV.visibility = View.GONE
 
-        print(response.customers.size)
+        setupAndPopulateUserListRV(response.customers)
     }
 
     private fun handleUserListFetchFail(message: String) {
@@ -90,5 +93,21 @@ class DeviceHolderListFragment : Fragment() {
         viewBinding.listRV.visibility = View.GONE
         viewBinding.messageTV.visibility = View.VISIBLE
         viewBinding.messageTV.text = message
+    }
+
+    private fun setupAndPopulateUserListRV(users: List<Customer>) {
+
+        val deviceHolderListAdapter
+            = DeviceHolderListAdapter(this, users)
+        val dividerItemDecoration
+            = DividerItemDecoration(viewBinding.listRV.context, DividerItemDecoration.VERTICAL)
+
+        viewBinding.listRV.layoutManager = LinearLayoutManager(requireContext())
+        viewBinding.listRV.adapter = deviceHolderListAdapter
+        viewBinding.listRV.addItemDecoration(dividerItemDecoration)
+    }
+
+    override fun onDeviceHolderItemSelected(id: Int) {
+
     }
 }
