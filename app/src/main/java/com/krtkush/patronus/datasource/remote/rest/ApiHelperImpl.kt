@@ -1,11 +1,12 @@
 package com.krtkush.patronus.datasource.remote.rest
 
-import com.krtkush.patronus.data.models.user.details.UserDetailsResponse
-import com.krtkush.patronus.data.models.user.list.UserListResponse
+import com.krtkush.patronus.data.ApiHelper
+import com.krtkush.patronus.datasource.remote.rest.model.details.UserDetailsResponse
+import com.krtkush.patronus.datasource.remote.rest.model.list.UserListResponse
 import retrofit2.Response
 import javax.inject.Inject
 
-class ApiHelperInterfaceImpl @Inject constructor(private val apiService: ApiService) : ApiHelperInterface {
+class ApiHelperImpl @Inject constructor(private val apiService: ApiService) : ApiHelper {
 
     override suspend fun getUsersList(): Response<UserListResponse> = apiService.getUsersList()
 

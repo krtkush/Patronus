@@ -1,8 +1,9 @@
 package com.krtkush.patronus.data.repositories
 
-import com.krtkush.patronus.data.models.user.details.UserDetailsResponse
-import com.krtkush.patronus.datasource.remote.rest.ApiHelperInterface
-import com.krtkush.patronus.data.models.user.list.UserListResponse
+import com.krtkush.patronus.datasource.remote.rest.model.details.UserDetailsResponse
+import com.krtkush.patronus.data.ApiHelper
+import com.krtkush.patronus.datasource.remote.rest.model.list.UserListResponse
+import com.krtkush.patronus.feature.UserRepository
 import com.krtkush.patronus.utils.network.BaseApiResponse
 import com.krtkush.patronus.utils.network.NetworkResult
 import kotlinx.coroutines.Dispatchers
@@ -11,8 +12,8 @@ import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
 import javax.inject.Inject
 
-class UserRepositoryImpl @Inject constructor(private val apiHelper: ApiHelperInterface) :
-    UserRepositoryInterface,
+class UserRepositoryImpl @Inject constructor(private val apiHelper: ApiHelper) :
+    UserRepository,
     BaseApiResponse() {
 
     override suspend fun fetchUsersList() : Flow<NetworkResult<UserListResponse>> {

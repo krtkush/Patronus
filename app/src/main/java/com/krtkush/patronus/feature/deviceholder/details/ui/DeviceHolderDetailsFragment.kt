@@ -15,14 +15,10 @@ import com.bumptech.glide.load.DataSource
 import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.Target
-import com.bumptech.glide.signature.ObjectKey
 import com.krtkush.patronus.R
-import com.krtkush.patronus.data.models.user.details.UserDetailsResponse
-import com.krtkush.patronus.data.models.user.list.Customer
-import com.krtkush.patronus.data.models.user.list.UserListResponse
+import com.krtkush.patronus.datasource.remote.rest.model.details.UserDetailsResponse
 import com.krtkush.patronus.databinding.DeviceHolderDetailsFragmentBinding
-import com.krtkush.patronus.databinding.UserListItemBinding
-import com.krtkush.patronus.feature.deviceholder.details.presentation.DeviceHolderDetailsViewModel
+import com.krtkush.patronus.feature.deviceholder.details.presentation.DeviceHolderDetailsViewModelImpl
 import com.krtkush.patronus.utils.autoCleared
 import com.krtkush.patronus.utils.network.NetworkResult
 import dagger.hilt.android.AndroidEntryPoint
@@ -33,7 +29,7 @@ const val userIdKey = "userId"
 @AndroidEntryPoint
 class DeviceHolderDetailsFragment : Fragment() {
 
-    private val viewModel : DeviceHolderDetailsViewModel by viewModels()
+    private val viewModel : DeviceHolderDetailsViewModelImpl by viewModels()
     private var viewBinding : DeviceHolderDetailsFragmentBinding  by autoCleared()
 
     override fun onCreateView(
@@ -118,37 +114,33 @@ class DeviceHolderDetailsFragment : Fragment() {
             viewBinding.banTag.visibility = View.GONE
         }
 
-        if (response.imageUrl.isNullOrEmpty()) {
-            setImageFailAlternative(viewBinding, response)
-        } else {
-            viewBinding.imageAlternativeTV.visibility = View.GONE
-            viewBinding.userImage.visibility = View.VISIBLE
+        viewBinding.imageAlternativeTV.visibility = View.GONE
+        viewBinding.userImage.visibility = View.VISIBLE
 
-            Glide.with(requireContext())
-                .load(response.imageUrl)
-                .listener(object : RequestListener<Drawable?> {
-                    override fun onLoadFailed(
-                        e: GlideException?,
-                        model: Any?,
-                        target: Target<Drawable?>?,
-                        isFirstResource: Boolean
-                    ): Boolean {
-                        setImageFailAlternative(viewBinding, response)
-                        return false
-                    }
+        Glide.with(requireContext())
+            .load(response.imageUrl)
+            .listener(object : RequestListener<Drawable?> {
+                override fun onLoadFailed(
+                    e: GlideException?,
+                    model: Any?,
+                    target: Target<Drawable?>?,
+                    isFirstResource: Boolean
+                ): Boolean {
+                    setImageFailAlternative(viewBinding, response)
+                    return false
+                }
 
-                    override fun onResourceReady(
-                        resource: Drawable?,
-                        model: Any?,
-                        target: Target<Drawable?>?,
-                        dataSource: DataSource?,
-                        isFirstResource: Boolean
-                    ): Boolean {
-                        return false
-                    }
-                })
-                .into(viewBinding.userImage)
-        }
+                override fun onResourceReady(
+                    resource: Drawable?,
+                    model: Any?,
+                    target: Target<Drawable?>?,
+                    dataSource: DataSource?,
+                    isFirstResource: Boolean
+                ): Boolean {
+                    return false
+                }
+            })
+            .into(viewBinding.userImage)
     }
 
     private fun handleUserListFetchFail(message: String) {
@@ -159,7 +151,8 @@ class DeviceHolderDetailsFragment : Fragment() {
 
     private fun setImageFailAlternative(
             itemBinding : DeviceHolderDetailsFragmentBinding,
-            userItem : UserDetailsResponse) {
+            userItem : UserDetailsResponse
+    ) {
 
         itemBinding.imageAlternativeTV.visibility = View.VISIBLE
         itemBinding.userImage.visibility = View.INVISIBLE

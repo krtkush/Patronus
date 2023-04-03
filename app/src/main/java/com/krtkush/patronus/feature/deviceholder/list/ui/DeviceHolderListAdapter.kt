@@ -11,7 +11,7 @@ import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.Target
 import com.krtkush.patronus.R
-import com.krtkush.patronus.data.models.user.list.Customer
+import com.krtkush.patronus.datasource.remote.rest.model.list.Customer
 import com.krtkush.patronus.databinding.UserListItemBinding
 
 class DeviceHolderListAdapter(
@@ -69,37 +69,33 @@ class UserItemViewHolder(
             itemBinding.banTag.visibility = View.GONE
         }
 
-        if (userItem.imageUrl.isNullOrEmpty()) {
-            setImageFailAlternative(itemBinding, userItem)
-        } else {
-            itemBinding.imageAlternativeTV.visibility = View.GONE
-            itemBinding.userImage.visibility = View.VISIBLE
+        itemBinding.imageAlternativeTV.visibility = View.GONE
+        itemBinding.userImage.visibility = View.VISIBLE
 
-            Glide.with(itemView.context)
-                .load(userItem.imageUrl)
-                .listener(object : RequestListener<Drawable?> {
-                    override fun onLoadFailed(
-                        e: GlideException?,
-                        model: Any?,
-                        target: Target<Drawable?>?,
-                        isFirstResource: Boolean
-                    ): Boolean {
-                        setImageFailAlternative(itemBinding, userItem)
-                        return false
-                    }
+        Glide.with(itemView.context)
+            .load(userItem.imageUrl)
+            .listener(object : RequestListener<Drawable?> {
+                override fun onLoadFailed(
+                    e: GlideException?,
+                    model: Any?,
+                    target: Target<Drawable?>?,
+                    isFirstResource: Boolean
+                ): Boolean {
+                    setImageFailAlternative(itemBinding, userItem)
+                    return false
+                }
 
-                    override fun onResourceReady(
-                        resource: Drawable?,
-                        model: Any?,
-                        target: Target<Drawable?>?,
-                        dataSource: DataSource?,
-                        isFirstResource: Boolean
-                    ): Boolean {
-                        return false
-                    }
-                })
-                .into(itemBinding.userImage)
-        }
+                override fun onResourceReady(
+                    resource: Drawable?,
+                    model: Any?,
+                    target: Target<Drawable?>?,
+                    dataSource: DataSource?,
+                    isFirstResource: Boolean
+                ): Boolean {
+                    return false
+                }
+            })
+            .into(itemBinding.userImage)
     }
 
     private fun setImageFailAlternative(itemBinding : UserListItemBinding, userItem : Customer) {

@@ -13,7 +13,7 @@ import org.junit.After
 class RestTest {
 
     private lateinit var retrofit: Retrofit
-    private lateinit var apiHelperImpl: ApiHelperInterfaceImpl
+    private lateinit var apiHelperImpl: ApiHelperImpl
     private lateinit var mockWebServer: MockWebServer
     private lateinit var userListResponseMock: MockResponse
 
@@ -50,7 +50,7 @@ class RestTest {
             .setBody(userListJsonString)
 
         mockWebServer.enqueue(userListResponseMock)
-        apiHelperImpl = ApiHelperInterfaceImpl(NetworkModule.provideApiService(retrofit))
+        apiHelperImpl = ApiHelperImpl(NetworkModule.provideApiService(retrofit))
 
         val res = apiHelperImpl.getUsersList()
 
@@ -68,7 +68,7 @@ class RestTest {
             .setBody(userDetailsString)
 
         mockWebServer.enqueue(userListResponseMock)
-        apiHelperImpl = ApiHelperInterfaceImpl(NetworkModule.provideApiService(retrofit))
+        apiHelperImpl = ApiHelperImpl(NetworkModule.provideApiService(retrofit))
 
         val res = apiHelperImpl.getUserDetails(4)
 

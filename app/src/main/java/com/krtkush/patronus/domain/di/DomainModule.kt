@@ -1,8 +1,8 @@
 package com.krtkush.patronus.domain.di
 
-import com.krtkush.patronus.data.repositories.UserRepositoryInterface
+import com.krtkush.patronus.feature.UserRepository
 import com.krtkush.patronus.domain.usecases.FetchUserDetailsByIdUseCase
-import com.krtkush.patronus.domain.usecases.FetchUsersUseCase
+import com.krtkush.patronus.domain.usecases.FetchUsersUseCaseImpl
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -16,13 +16,13 @@ object DomainModule {
 
     @Provides
     @Singleton
-    fun provideFetchUsersUseCase(userRepositoryInterface: UserRepositoryInterface) : FetchUsersUseCase {
-        return FetchUsersUseCase(userRepositoryInterface)
+    fun provideFetchUsersUseCase(userRepository: UserRepository) : FetchUsersUseCaseImpl {
+        return FetchUsersUseCaseImpl(userRepository)
     }
 
     @Provides
     @Singleton
-    fun provideFetchUserDetailsByIdUseCase(userRepositoryInterface: UserRepositoryInterface) : FetchUserDetailsByIdUseCase {
-        return FetchUserDetailsByIdUseCase(userRepositoryInterface)
+    fun provideFetchUserDetailsByIdUseCase(userRepository: UserRepository) : FetchUserDetailsByIdUseCase {
+        return FetchUserDetailsByIdUseCase(userRepository)
     }
 }

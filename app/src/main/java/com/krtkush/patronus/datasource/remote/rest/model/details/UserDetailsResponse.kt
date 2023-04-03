@@ -1,4 +1,4 @@
-package com.krtkush.patronus.data.models.user.details
+package com.krtkush.patronus.datasource.remote.rest.model.details
 
 
 import com.squareup.moshi.Json

@@ -1,8 +1,8 @@
 package com.krtkush.patronus.datasource.di
 
 import com.krtkush.patronus.BuildConfig
-import com.krtkush.patronus.datasource.remote.rest.ApiHelperInterface
-import com.krtkush.patronus.datasource.remote.rest.ApiHelperInterfaceImpl
+import com.krtkush.patronus.data.ApiHelper
+import com.krtkush.patronus.datasource.remote.rest.ApiHelperImpl
 import com.krtkush.patronus.datasource.remote.rest.ApiService
 import dagger.Module
 import dagger.Provides
@@ -60,5 +60,5 @@ object NetworkModule {
 
     @Provides
     @Singleton
-    fun provideApiHelper(apiHelper: ApiHelperInterfaceImpl): ApiHelperInterface = apiHelper
+    fun provideApiHelper(apiHelper: ApiHelperImpl): ApiHelper = apiHelper
 }

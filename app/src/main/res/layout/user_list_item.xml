@@ -31,6 +31,7 @@
         android:layout_toEndOf="@id/userImage"
         android:layout_marginStart="12dp"
         android:textSize="17sp"
+        android:textStyle="bold"
         android:textColor="@color/black_text"/>
 
     <TextView

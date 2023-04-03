@@ -12,9 +12,13 @@
         <!-- Status bar color. -->
         <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
-        <!--Removing actionbar-->
+
+        <!--Remove (Duplicate) actionbar-->
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
+
+        <!-- set the height of Action Bar. -->
+        <item name="actionBarSize">76dp</item>
     </style>
 
     <style name="ToolbarTheme" parent="ThemeOverlay.MaterialComponents.ActionBar">

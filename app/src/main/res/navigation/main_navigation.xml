@@ -14,6 +14,7 @@
             android:id="@+id/action_deviceHolderListFragment_to_deviceHolderDetailsFragment"
             app:destination="@id/deviceHolderDetailsFragment" />
     </fragment>
+
     <fragment
         android:id="@+id/deviceHolderDetailsFragment"
         android:name="com.krtkush.patronus.feature.deviceholder.details.ui.DeviceHolderDetailsFragment"
