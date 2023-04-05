@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.krtkush.patronus.datasource.remote.rest.model.list.UserListResponse
 import com.krtkush.patronus.domain.usecases.FetchUsersUseCaseImpl
+import com.krtkush.patronus.feature.deviceholder.list.ui.DeviceHolderListFragmentDirections
 import com.krtkush.patronus.feature.deviceholder.list.ui.DeviceHolderListViewModel
 import com.krtkush.patronus.utils.network.NetworkResult
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -30,5 +31,9 @@ class DeviceHolderListViewModelImpl @Inject constructor(
                 _userListState.value = it
             }
         }
+    }
+
+    override fun onUserSelected(userId: Int) {
+        //navigationHelper.navigateTo(DEVICE_HOLDER_LIST, bundleOf(userIdKey to userId))
     }
 }

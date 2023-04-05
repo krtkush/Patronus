@@ -7,5 +7,7 @@ import kotlinx.coroutines.flow.StateFlow
 interface DeviceHolderListViewModel {
 
     val userListState: StateFlow<NetworkResult<UserListResponse>>
+
     fun fetchUsers()
+    fun onUserSelected(userId: Int)
 }

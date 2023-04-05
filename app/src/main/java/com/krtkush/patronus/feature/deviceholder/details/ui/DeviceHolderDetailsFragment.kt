@@ -10,6 +10,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DataSource
 import com.bumptech.glide.load.engine.GlideException
@@ -21,6 +22,7 @@ import com.krtkush.patronus.databinding.DeviceHolderDetailsFragmentBinding
 import com.krtkush.patronus.feature.deviceholder.details.presentation.DeviceHolderDetailsViewModelImpl
 import com.krtkush.patronus.utils.autoCleared
 import com.krtkush.patronus.utils.network.NetworkResult
+import com.krtkush.patronus.utils.ui.GlideRequestFailureListenerWrapper
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -28,6 +30,8 @@ const val userIdKey = "userId"
 
 @AndroidEntryPoint
 class DeviceHolderDetailsFragment : Fragment() {
+
+    private val args : DeviceHolderDetailsFragmentArgs by navArgs()
 
     private val viewModel : DeviceHolderDetailsViewModelImpl by viewModels()
     private var viewBinding : DeviceHolderDetailsFragmentBinding  by autoCleared()
@@ -45,9 +49,7 @@ class DeviceHolderDetailsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         setupObservers()
-        arguments?.getInt(userIdKey)?.let {
-            viewModel.fetchUserDetails(it)
-        }
+        viewModel.fetchUserDetails(args.userId)
     }
 
     private fun setupObservers() {
@@ -119,27 +121,11 @@ class DeviceHolderDetailsFragment : Fragment() {
 
         Glide.with(requireContext())
             .load(response.imageUrl)
-            .listener(object : RequestListener<Drawable?> {
-                override fun onLoadFailed(
-                    e: GlideException?,
-                    model: Any?,
-                    target: Target<Drawable?>?,
-                    isFirstResource: Boolean
-                ): Boolean {
+            .listener(GlideRequestFailureListenerWrapper(
+                onError = {
                     setImageFailAlternative(viewBinding, response)
-                    return false
                 }
-
-                override fun onResourceReady(
-                    resource: Drawable?,
-                    model: Any?,
-                    target: Target<Drawable?>?,
-                    dataSource: DataSource?,
-                    isFirstResource: Boolean
-                ): Boolean {
-                    return false
-                }
-            })
+            ))
             .into(viewBinding.userImage)
     }
 

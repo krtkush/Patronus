@@ -13,6 +13,7 @@ import com.bumptech.glide.request.target.Target
 import com.krtkush.patronus.R
 import com.krtkush.patronus.datasource.remote.rest.model.list.Customer
 import com.krtkush.patronus.databinding.UserListItemBinding
+import com.krtkush.patronus.utils.ui.GlideRequestFailureListenerWrapper
 
 class DeviceHolderListAdapter(
     private val listener: DeviceHolderItemOnClickListener,
@@ -20,7 +21,7 @@ class DeviceHolderListAdapter(
     ) : RecyclerView.Adapter<UserItemViewHolder>() {
 
     interface DeviceHolderItemOnClickListener {
-        fun onDeviceHolderItemSelected(id: Int)
+        fun onDeviceHolderItemSelected(userId: Int)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UserItemViewHolder {
@@ -74,27 +75,11 @@ class UserItemViewHolder(
 
         Glide.with(itemView.context)
             .load(userItem.imageUrl)
-            .listener(object : RequestListener<Drawable?> {
-                override fun onLoadFailed(
-                    e: GlideException?,
-                    model: Any?,
-                    target: Target<Drawable?>?,
-                    isFirstResource: Boolean
-                ): Boolean {
+            .listener(GlideRequestFailureListenerWrapper(
+                onError = {
                     setImageFailAlternative(itemBinding, userItem)
-                    return false
                 }
-
-                override fun onResourceReady(
-                    resource: Drawable?,
-                    model: Any?,
-                    target: Target<Drawable?>?,
-                    dataSource: DataSource?,
-                    isFirstResource: Boolean
-                ): Boolean {
-                    return false
-                }
-            })
+            ))
             .into(itemBinding.userImage)
     }
 

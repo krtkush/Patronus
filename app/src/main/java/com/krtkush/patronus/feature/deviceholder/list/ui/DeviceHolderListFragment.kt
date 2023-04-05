@@ -32,7 +32,6 @@ class DeviceHolderListFragment : BaseFragment<DeviceHolderListFragmentBinding>(
 ), DeviceHolderListAdapter.DeviceHolderItemOnClickListener {
 
     private val viewModel : DeviceHolderListViewModelImpl by viewModels()
-    private var viewBinding : DeviceHolderListFragmentBinding by autoCleared()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -73,25 +72,25 @@ class DeviceHolderListFragment : BaseFragment<DeviceHolderListFragmentBinding>(
     private fun toggleProgressBarVisibility(show : Boolean) {
 
         if (show) {
-            viewBinding.progressBar.visibility = View.VISIBLE
+            binding.progressBar.visibility = View.VISIBLE
         } else {
-            viewBinding.progressBar.visibility = View.GONE
+            binding.progressBar.visibility = View.GONE
         }
     }
 
     private fun handleUserListFetchSuccess(response : UserListResponse) {
 
-        viewBinding.listRV.visibility = View.VISIBLE
-        viewBinding.messageTV.visibility = View.GONE
+        binding.listRV.visibility = View.VISIBLE
+        binding.messageTV.visibility = View.GONE
 
         setupAndPopulateUserListRV(response.customers)
     }
 
     private fun handleUserListFetchFail(message: String) {
 
-        viewBinding.listRV.visibility = View.GONE
-        viewBinding.messageTV.visibility = View.VISIBLE
-        viewBinding.messageTV.text = message
+        binding.listRV.visibility = View.GONE
+        binding.messageTV.visibility = View.VISIBLE
+        binding.messageTV.text = message
     }
 
     private fun setupAndPopulateUserListRV(users: List<Customer>) {
@@ -99,21 +98,19 @@ class DeviceHolderListFragment : BaseFragment<DeviceHolderListFragmentBinding>(
         val deviceHolderListAdapter
             = DeviceHolderListAdapter(this, users)
         val dividerItemDecoration
-            = DividerItemDecoration(viewBinding.listRV.context, DividerItemDecoration.VERTICAL)
+            = DividerItemDecoration(binding.listRV.context, DividerItemDecoration.VERTICAL)
         ResourcesCompat.getDrawable(resources, R.drawable.eighty_percent_div, null)
             ?.let { dividerItemDecoration.setDrawable(it) }
 
-        viewBinding.listRV.layoutManager = LinearLayoutManager(requireContext())
-        viewBinding.listRV.adapter = deviceHolderListAdapter
-        viewBinding.listRV.addItemDecoration(dividerItemDecoration)
+        binding.listRV.layoutManager = LinearLayoutManager(requireContext())
+        binding.listRV.adapter = deviceHolderListAdapter
+        binding.listRV.addItemDecoration(dividerItemDecoration)
     }
 
-    override fun onDeviceHolderItemSelected(id: Int) {
+    override fun onDeviceHolderItemSelected(userId: Int) {
+        viewModel.onUserSelected(userId)
 
-        findNavController()
-            .navigate(
-                R.id.action_deviceHolderListFragment_to_deviceHolderDetailsFragment,
-                bundleOf(userIdKey to id)
-            )
+        val action = DeviceHolderListFragmentDirections.actionGlobalGotoDeviceHolderDetailsFragment(userId)
+        findNavController().navigate(action)
     }
 }
