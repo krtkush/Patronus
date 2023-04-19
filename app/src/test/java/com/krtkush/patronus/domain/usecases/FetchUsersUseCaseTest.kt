@@ -14,7 +14,7 @@ import org.mockito.Mockito.mock
 import org.mockito.Mockito.`when`
 
 @RunWith(org.mockito.junit.MockitoJUnitRunner::class)
-class FetchUsersUseCaseImplTest {
+class FetchUsersUseCaseTest {
 
     @Test
     suspend fun test() = runBlocking {
@@ -42,9 +42,9 @@ class FetchUsersUseCaseImplTest {
             ) }
         }
 
-        val fetchUsersUseCaseImpl = FetchUsersUseCaseImpl(userRepositoryMock)
+        val fetchUsersUseCase = FetchUsersUseCase(userRepositoryMock)
 
-        val result = fetchUsersUseCaseImpl.invoke()
+        val result = fetchUsersUseCase.invoke()
         assertNotNull(result)
     }
 

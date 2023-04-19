@@ -1,6 +1,5 @@
 package com.krtkush.patronus.feature.deviceholder.details.ui
 
-import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -12,10 +11,6 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
-import com.bumptech.glide.load.DataSource
-import com.bumptech.glide.load.engine.GlideException
-import com.bumptech.glide.request.RequestListener
-import com.bumptech.glide.request.target.Target
 import com.krtkush.patronus.R
 import com.krtkush.patronus.datasource.remote.rest.model.details.UserDetailsResponse
 import com.krtkush.patronus.databinding.DeviceHolderDetailsFragmentBinding
@@ -25,8 +20,6 @@ import com.krtkush.patronus.utils.network.NetworkResult
 import com.krtkush.patronus.utils.ui.GlideRequestFailureListenerWrapper
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
-
-const val userIdKey = "userId"
 
 @AndroidEntryPoint
 class DeviceHolderDetailsFragment : Fragment() {

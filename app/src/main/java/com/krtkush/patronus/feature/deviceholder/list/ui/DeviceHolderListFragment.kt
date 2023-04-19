@@ -1,33 +1,26 @@
 package com.krtkush.patronus.feature.deviceholder.list.ui
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.core.content.res.ResourcesCompat
-import androidx.core.os.bundleOf
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.krtkush.patronus.R
 import com.krtkush.patronus.datasource.remote.rest.model.list.Customer
 import com.krtkush.patronus.datasource.remote.rest.model.list.UserListResponse
 import com.krtkush.patronus.databinding.DeviceHolderListFragmentBinding
-import com.krtkush.patronus.feature.deviceholder.details.ui.userIdKey
 import com.krtkush.patronus.feature.deviceholder.list.presentation.DeviceHolderListViewModelImpl
-import com.krtkush.patronus.main.base.BaseFragment
-import com.krtkush.patronus.utils.autoCleared
+import com.krtkush.patronus.main.fragment.BaseFragment
 import com.krtkush.patronus.utils.network.NetworkResult
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class DeviceHolderListFragment : BaseFragment<DeviceHolderListFragmentBinding>(
+class DeviceHolderListFragment: BaseFragment<DeviceHolderListFragmentBinding>(
     DeviceHolderListFragmentBinding::inflate
 ), DeviceHolderListAdapter.DeviceHolderItemOnClickListener {
 
@@ -109,8 +102,5 @@ class DeviceHolderListFragment : BaseFragment<DeviceHolderListFragmentBinding>(
 
     override fun onDeviceHolderItemSelected(userId: Int) {
         viewModel.onUserSelected(userId)
-
-        val action = DeviceHolderListFragmentDirections.actionGlobalGotoDeviceHolderDetailsFragment(userId)
-        findNavController().navigate(action)
     }
 }

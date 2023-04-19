@@ -1,11 +1,15 @@
 package com.krtkush.patronus.feature.deviceholder.list.presentation
 
+import androidx.core.app.NavUtils
+import androidx.core.os.bundleOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.navigation.NavController
 import com.krtkush.patronus.datasource.remote.rest.model.list.UserListResponse
-import com.krtkush.patronus.domain.usecases.FetchUsersUseCaseImpl
+import com.krtkush.patronus.domain.usecases.FetchUsersUseCase
 import com.krtkush.patronus.feature.deviceholder.list.ui.DeviceHolderListFragmentDirections
 import com.krtkush.patronus.feature.deviceholder.list.ui.DeviceHolderListViewModel
+import com.krtkush.patronus.navigation.NavigationUtil
 import com.krtkush.patronus.utils.network.NetworkResult
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -15,7 +19,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class DeviceHolderListViewModelImpl @Inject constructor(
-        private val fetchUsersUseCaseImpl: FetchUsersUseCaseImpl
+    private val fetchUsersUseCase: FetchUsersUseCase,
+    private val navigationUtil: NavigationUtil
     ) : DeviceHolderListViewModel, ViewModel() {
 
     private val _userListState = MutableStateFlow<NetworkResult<UserListResponse>>(NetworkResult.Loading)
@@ -27,13 +32,13 @@ class DeviceHolderListViewModelImpl @Inject constructor(
         _userListState.value = NetworkResult.Loading
 
         viewModelScope.launch {
-            fetchUsersUseCaseImpl.invoke().collect {
+            fetchUsersUseCase.invoke().collect {
                 _userListState.value = it
             }
         }
     }
 
     override fun onUserSelected(userId: Int) {
-        //navigationHelper.navigateTo(DEVICE_HOLDER_LIST, bundleOf(userIdKey to userId))
+        navigationUtil.navigateToDeviceHolderDetails(userId)
     }
 }

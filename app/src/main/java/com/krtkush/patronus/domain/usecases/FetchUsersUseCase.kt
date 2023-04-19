@@ -6,7 +6,7 @@ import com.krtkush.patronus.utils.network.NetworkResult
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
-class FetchUsersUseCaseImpl @Inject constructor(
+class FetchUsersUseCase @Inject constructor(
     private val userRepo : UserRepository
 ) {
 
